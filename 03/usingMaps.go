@@ -19,7 +19,7 @@ func main() {
 	delete(anotherMap, "k1")
 	fmt.Println("anotherMap:", anotherMap)
 
-	_, ok := iMap["doesItExist"]
+	_, ok := iMap["k1"]
 
 	if ok {
 		fmt.Println("Exists!")

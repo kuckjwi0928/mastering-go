@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
 	const r1 = '!'
@@ -15,4 +18,7 @@ func main() {
 		fmt.Printf("Char: %c\n", aString[x])
 	}
 	fmt.Printf("%s\n", aString)
+	fmt.Println(string("abc"[0]))
+	r := rune("abc"[0])
+	fmt.Println(strconv.QuoteRune(r))
 }

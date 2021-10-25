@@ -30,6 +30,35 @@ func addDoublyListNode(t *DoublyListNode, v int) int {
 	return addDoublyListNode(t.Next, v)
 }
 
+func removeDoublyListNode(t *DoublyListNode, v int) bool {
+	currNode := t
+
+	if sizeDoublyList(t) == 1 {
+		doublyListRoot = nil
+		return true
+	}
+
+	if doublyListRoot.Value == v {
+		temp := doublyListRoot.Next
+		temp.Previous = nil
+		doublyListRoot = temp
+		return true
+	}
+
+	for currNode != nil {
+		if currNode.Value == v {
+			currNode.Previous.Next = currNode.Next
+			if currNode.Next == nil {
+				return true
+			}
+			currNode.Next.Previous = currNode.Previous
+			return true
+		}
+		currNode = currNode.Next
+	}
+	return false
+}
+
 func traverseDoublyList(t *DoublyListNode) {
 	if t == nil {
 		fmt.Println("-> Empty list!")
@@ -90,13 +119,19 @@ func main() {
 	doublyListRoot = nil
 	traverseDoublyList(doublyListRoot)
 	addDoublyListNode(doublyListRoot, 1)
-	addDoublyListNode(doublyListRoot, 1)
-	traverseDoublyList(doublyListRoot)
 	addDoublyListNode(doublyListRoot, 10)
 	addDoublyListNode(doublyListRoot, 5)
 	addDoublyListNode(doublyListRoot, 0)
-	addDoublyListNode(doublyListRoot, 0)
 	traverseDoublyList(doublyListRoot)
+	removeDoublyListNode(doublyListRoot, 0)
+	traverseDoublyList(doublyListRoot)
+	removeDoublyListNode(doublyListRoot, 5)
+	traverseDoublyList(doublyListRoot)
+	removeDoublyListNode(doublyListRoot, 1)
+	traverseDoublyList(doublyListRoot)
+	removeDoublyListNode(doublyListRoot, 10)
+	traverseDoublyList(doublyListRoot)
+	addDoublyListNode(doublyListRoot, 5)
 	fmt.Println("Size:", sizeDoublyList(doublyListRoot))
 	reverseDoublyList(doublyListRoot)
 }

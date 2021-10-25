@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -11,7 +12,7 @@ func main() {
 	var LENGTH int64 = 10
 	SEED := time.Now().Unix()
 	rand.Seed(SEED)
-	startChar := "!"
+	startChar := strings.ToUpper("!abc")
 	for {
 		myRand := rand.Intn(94-0) + 94
 		newChar := string(startChar[0] + byte(myRand))

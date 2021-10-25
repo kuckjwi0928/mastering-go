@@ -19,6 +19,10 @@ func hashFunction(i, size int) int {
 }
 
 func insertHashTable(hash *HashTable, value int) int {
+	if lookupHashTable(hash, value) {
+		fmt.Println("Value exists!", value)
+		return -1
+	}
 	index := hashFunction(value, hash.Size)
 	element := Node{Value: value, Next: hash.Table[index]}
 	hash.Table[index] = &element
@@ -60,6 +64,7 @@ func main() {
 		insertHashTable(hash, i)
 	}
 	traverseHashTable(hash)
+	insertHashTable(hash, 0)
 	fmt.Println(lookupHashTable(hash, 119))
 	fmt.Println(lookupHashTable(hash, 120))
 }

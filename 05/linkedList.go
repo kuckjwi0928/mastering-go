@@ -15,15 +15,47 @@ func addNode(t *ListNode, v int) int {
 		root = t
 		return 0
 	}
-	if v == t.Value {
-		fmt.Println("Node already exist:", v)
-		return -1
-	}
-	if t.Next == nil {
-		t.Next = &ListNode{v, nil}
+
+	if root.Value > v {
+		temp := root
+		root = &ListNode{v, temp}
 		return -2
 	}
-	return addNode(t.Next, v)
+
+	prevNode := t
+	currNode := t
+
+	for currNode != nil {
+		if v == currNode.Value {
+			fmt.Println("Node already exist:", v)
+			return -1
+		}
+		if currNode.Value > v {
+			temp := currNode
+			prevNode.Next = &ListNode{v, temp}
+			return -2
+		}
+		prevNode = currNode
+		currNode = currNode.Next
+	}
+
+	prevNode.Next = &ListNode{v, nil}
+
+	return -2
+}
+
+func removeNode(t *ListNode, v int) (bool, int) {
+	prevNode := t
+	currNode := t
+	for currNode != nil {
+		if currNode.Value == v {
+			prevNode.Next = currNode.Next
+			return true, currNode.Value
+		}
+		prevNode = currNode
+		currNode = currNode.Next
+	}
+	return false, -1
 }
 
 func traverseLinkedList(t *ListNode) {
@@ -69,8 +101,12 @@ func main() {
 	fmt.Println(root)
 	root = nil
 	root = nil
-	traverseLinkedList(root)
 	addNode(root, 1)
+	addNode(root, 2)
+	addNode(root, 3)
+	addNode(root, 4)
+	addNode(root, 5)
+	addNode(root, 0)
 	addNode(root, -1)
 	traverseLinkedList(root)
 	addNode(root, 10)
@@ -78,6 +114,10 @@ func main() {
 	addNode(root, 45)
 	addNode(root, 5)
 	addNode(root, 5)
+	removed, value := removeNode(root, 5)
+	if removed {
+		fmt.Println("Node Removed", value)
+	}
 	traverseLinkedList(root)
 	addNode(root, 100)
 	traverseLinkedList(root)

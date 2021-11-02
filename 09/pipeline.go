@@ -19,22 +19,24 @@ func first(min, max int, out chan<- int) {
 			close(out)
 			return
 		}
+		fmt.Println("first out!")
 		out <- random(min, max)
 	}
 }
 
 func second(out chan<- int, in <-chan int) {
 	for x := range in {
-		fmt.Print(x, " ")
+		fmt.Print("second receive! ", x, " ")
+		fmt.Println()
 		_, ok := DATA[x]
 		if ok {
 			CLOSEA = true
 		} else {
 			DATA[x] = true
+			fmt.Println("second out!")
 			out <- x
 		}
 	}
-	fmt.Println()
 	close(out)
 }
 
@@ -42,6 +44,7 @@ func third(in <-chan int) {
 	var sum int
 	sum = 0
 	for x := range in {
+		fmt.Println("third receive!")
 		sum = sum + x
 	}
 	fmt.Println(sum)

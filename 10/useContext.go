@@ -60,7 +60,7 @@ func connect(c context.Context) error {
 }
 
 func main() {
-	myUrl = "https://www.naver.com"
+	myUrl = "http://localhost:8080"
 
 	c := context.Background()
 	c, cancel := context.WithTimeout(c, time.Duration(delay)*time.Second)

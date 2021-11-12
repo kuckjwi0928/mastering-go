@@ -110,7 +110,7 @@ func main() {
 	}
 
 	err = pprof.WriteHeapProfile(memory)
-	ㅣ
+
 	if err != nil {
 		fmt.Println(err)
 	}

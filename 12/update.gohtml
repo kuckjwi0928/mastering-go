@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>A Key Value Store!</title>
+    </head>
+    <body>
+        <a href="/">Home sweet home!</a>
+        <a href="/list">List all elements!</a>
+        <a href="/change">Change an element!</a>
+        <a href="/insert">Insert an element!</a>
+        {{ if .Success }} <h1>Element updated!</h1>
+        {{ else }}
+            <h1>Please fill in the fields: </h1>
+            <form method="POST">
+                <label>Key:</label><br />
+                <input type="text" name="key"><br/>
+                <label>Name:</label><br />
+                <input type="text" name="name"><br/>
+                <label>Surname:</label><br />
+                <input type="text" name="surname"><br/>
+                <label>Id:</label><br />
+                <input type="text" name="id"><br/>
+                <input type="submit">
+            </form>
+        {{ end }}
+    </body>
+</html>

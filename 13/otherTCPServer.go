@@ -8,31 +8,41 @@ import (
 
 func main() {
 	s, err := net.ResolveTCPAddr("tcp", "localhost:8080")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	l, err := net.ListenTCP("tcp", s)
+
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	conn, err := l.Accept()
+	l, err := net.ListenTCP("tcp", s)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	defer l.Close()
 
 	for {
-		buffer := make([]byte, 1024)
+		conn, err := l.Accept()
 		if err != nil {
 			fmt.Println(err)
-			return
+			continue
 		}
+		go handle(conn)
+	}
+}
+
+func handle(conn net.Conn) {
+	for {
+		buffer := make([]byte, 1024)
 		n, err := conn.Read(buffer)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 		if strings.TrimSpace(string(buffer[0:n])) == "STOP" {
-			fmt.Println("Exiting TCP server!")
+			fmt.Println("Exiting connection!")
 			conn.Close()
 			return
 		}
